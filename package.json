@@ -3,9 +3,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint:fix": "npx @biomejs/biome lint --write ./app",
+    "lint:format-fix": "npx @biomejs/biome check --write ./app"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-label": "^2.1.0",
