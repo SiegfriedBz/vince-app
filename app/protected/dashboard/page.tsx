@@ -29,10 +29,10 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <main className="flex-1 flex flex-col gap-6 px-4">
+      <main className="flex-1 w-full flex flex-col gap-6 px-4">
         <h2 className="font-medium text-xl mb-4">Dashboard</h2>
 
-        <div className="flex gap-8">
+        <div className="flex flex-wrap gap-8">
           <div key="pcd_id">
             <SelectPcd selectedPcdId={pcd_id} pcdsData={pcdsData} />
           </div>
@@ -41,11 +41,11 @@ export default async function Page(props: Props) {
           </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="flex w-full flex-wrap gap-8 items-center justify-start">
           {formatedSensorsData?.map((sensorData) => {
             return (
               <CustomLineChart
-                key={sensorData.sensor.readings?.[0]?.id}
+                key={sensorData.sensor.readings?.[0]?.timestamp}
                 data={sensorData}
               />
             );
