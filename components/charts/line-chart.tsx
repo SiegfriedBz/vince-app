@@ -79,7 +79,7 @@ export const CustomLineChart: FC<Props> = (props) => {
   };
 
   return (
-    <Card>
+    <Card className="min-w-96 xl:min-w-[32rem]">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -90,10 +90,10 @@ export const CustomLineChart: FC<Props> = (props) => {
             accessibilityLayer
             data={chartData}
             margin={{
-              left: 12,
-              right: 12,
-              top: 12, // You can adjust top margin too if needed
-              bottom: 50, // Increase the bottom margin to make room for rotated labels
+              left: 4,
+              right: 4,
+              top: 4,
+              bottom: 16,
             }}
           >
             <CartesianGrid vertical={false} />
