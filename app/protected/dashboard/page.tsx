@@ -24,7 +24,6 @@ export default async function Page(props: Props) {
   const probesData = await GetPcdProbes({ pcdId: pcd_id });
 
   const sensorsData = await GetSensorsData({ probeId: probe_id });
-
   const formatedSensorsData = getFormatedSensorsData(sensorsData);
 
   return (
@@ -41,11 +40,11 @@ export default async function Page(props: Props) {
           </div>
         </div>
 
-        <div className="flex w-full flex-wrap gap-8 items-center justify-start">
-          {formatedSensorsData?.map((sensorData) => {
+        <div className="flex w-full flex-wrap gap-8 items-center mx-auto sm:justify-start">
+          {formatedSensorsData?.map((sensorData, idx) => {
             return (
               <CustomLineChart
-                key={sensorData.sensor.readings?.[0]?.timestamp}
+                key={`${idx}-${sensorData.sensor.measuredParameter}`}
                 data={sensorData}
               />
             );
