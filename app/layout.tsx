@@ -37,7 +37,7 @@ export default function RootLayout({
           <main className="min-h-screen flex flex-col items-center w-full">
             <div className="w-full flex flex-col gap-20 items-center">
               <Navbar />
-              <div className="flex max-w-7xl w-full flex-col gap-4 p-5">
+              <div className="flex max-w-7xl items-center w-full flex-col gap-4 p-5">
                 <NuqsAdapter>{children}</NuqsAdapter>
               </div>
               <Footer />
