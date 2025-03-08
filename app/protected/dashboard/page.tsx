@@ -1,22 +1,12 @@
-import { Suspense } from "react";
-import { ChartWrapper } from "./_components/chart-wrapper";
-import { SkeletonCard } from "@/components/skeleton-card";
 import type { SearchParams } from "nuqs/server";
 import { searchParamsCache } from "./search-params";
 import { SelectPcd } from "./_components/select-pcd";
 import { GetCompanyPcds } from "./_api/get-company-pcds";
 import { GetPcdProbes } from "./_api/get-pcd-probes";
-import { GetProbeSensors } from "./_api/get-probe-sensors";
 import { SelectProbe } from "./_components/select-probe";
-import {
-  GetSensorsReadings,
-  type GetSensorsReadingsT,
-} from "./_api/get-sensors-readings";
-import type { CustomLineChartDataT, FormatedReading } from "./types";
+import type { CustomLineChartDataT } from "./types";
 import { CustomLineChart } from "@/components/charts/line-chart";
-import { GetAllProbesSensors } from "./_api/get-all-probes-sensors";
-import { GetSensorsData, GetSensorsDataT } from "./_api/get-sensors-data ";
-import { PcdsT, ProbesT, SensorReadingsT, SensorsT } from "@/schemas";
+import { GetSensorsData, type GetSensorsDataT } from "./_api/get-sensors-data ";
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -30,9 +20,6 @@ export default async function Page(props: Props) {
 
   const { pcd_id, probe_id } = filters;
 
-  //               pcd
-  //   probe 1           probe 2
-  // sensor1 sensor2     sensor3 ...
   const pcdsData = await GetCompanyPcds({ companyId: COMPANY_ID });
   const probesData = await GetPcdProbes({ pcdId: pcd_id });
 
