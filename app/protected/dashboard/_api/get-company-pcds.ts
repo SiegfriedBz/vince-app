@@ -4,7 +4,12 @@ import { Pcds, type PcdsT } from "@/schemas";
 import { createClient } from "@/utils/supabase/server";
 import type { z } from "zod";
 
-const Result = Pcds.pick({ id: true, designation: true }).array();
+const Result = Pcds.pick({
+  id: true,
+  designation: true,
+  latitude: true,
+  longitude: true,
+}).array();
 
 export type GetCompanyPcdsT = z.infer<typeof Result>;
 
@@ -20,7 +25,7 @@ export async function GetCompanyPcds(params: Params) {
 
   const { data, error } = await client
     .from("pcds")
-    .select("id, designation")
+    .select("id, designation, latitude, longitude")
     .eq("company_id", companyId);
 
   if (error) {

@@ -8,7 +8,9 @@ type Params = {
   pcdId: PcdsT["id"];
 };
 
-const Result = z.array(Probes.pick({ id: true, designation: true }));
+const Result = z.array(
+  Probes.pick({ id: true, designation: true, latitude: true, longitude: true })
+);
 
 export type GetPcdProbesT = z.infer<typeof Result>;
 
@@ -21,7 +23,7 @@ export async function GetPcdProbes(params: Params) {
 
   const { data, error } = await client
     .from("probes")
-    .select("id, designation")
+    .select("id, designation, latitude, longitude")
     .eq("pcd_id", pcdId);
 
   console.log("====> GetPcdProbes data", data);
