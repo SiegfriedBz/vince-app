@@ -7,6 +7,8 @@ import { SelectProbe } from "./_components/select-probe";
 import type { CustomLineChartDataT } from "./types";
 import { CustomLineChart } from "@/components/charts/line-chart";
 import { GetSensorsData, type GetSensorsDataT } from "./_api/get-sensors-data ";
+import { CMapProvider } from "@/components/map-provider";
+import { CMap } from "@/components/map";
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -24,11 +26,32 @@ export default async function Page(props: Props) {
   const probesData = await GetPcdProbes({ pcdId: pcd_id });
 
   const sensorsData = await GetSensorsData({ probeId: probe_id });
-  const formatedSensorsData = getFormatedSensorsData(sensorsData);
+  const formatedSensorsData: CustomLineChartDataT[] =
+    getFormatedSensorsData(sensorsData);
+
+  const pcdMarkersData = pcdsData?.map((p) => {
+    return {
+      id: p.id,
+      designation: p.designation,
+      // TODO CHECK
+      lat: p.latitude,
+      lng: p.longitude,
+    };
+  });
+
+  const probeMarkersData = probesData?.map((p) => {
+    return {
+      id: p.id,
+      designation: p.designation,
+      // TODO CHECK
+      lat: p.latitude,
+      lng: p.longitude,
+    };
+  });
 
   return (
-    <>
-      <main className="flex-1 w-full flex flex-col gap-6 px-4">
+    <CMapProvider>
+      <main className="w-full flex flex-col items-center gap-6 px-4">
         <h2 className="font-medium text-xl mb-4">Dashboard</h2>
 
         <div className="flex flex-wrap gap-8">
@@ -50,8 +73,15 @@ export default async function Page(props: Props) {
             );
           })}
         </div>
+
+        <div className="w-full">
+          <CMap
+            pcdMarkersData={pcdMarkersData}
+            probeMarkersData={probeMarkersData}
+          />
+        </div>
       </main>
-    </>
+    </CMapProvider>
   );
 }
 
